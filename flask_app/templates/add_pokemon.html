@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Pokemon Teams | Add Pokemon</title>
+</head>
+<body>
+    <form action="/create_pokemon" method="post" class="col-6 bg-dark p-4 my-5 mx-auto text-light">
+        <h2 class="text-center text-primary">New Pokemon</h2>
+        <div class="form-group">
+            <label for="dojo">Team:</label>
+            <select name="team_id" class="form-control">
+                {% for team in teams %}
+                <option value="{{team.id}}">{{team.team_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="pokemon_name">Pokemon Name:</label>
+            <input type="text" name="pokemon_name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="pokemon_level">Pokemon Level:</label>
+            <input type="number" name="pokemon_level" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="pokemon_species">Pokemon Species:</label>
+            <input type="text" name="pokemon_species" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="notes">Pokemon Species:</label>
+            <textarea name="notes" id="" cols="30" rows="10"></textarea>
+        </div>
+        <input type="submit" value="Add Pokemon" class="btn btn-primary btn-outline-dark">
+    </form>
+</body>
+</html>
