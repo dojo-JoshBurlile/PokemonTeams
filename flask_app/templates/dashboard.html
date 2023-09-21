@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Pokémon Teams</a>
+            <a class="navbar-brand" href="/dashboard">Pokémon Teams</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/my_teams">My Teams</a>
+                        <a class="nav-link" aria-current="page" href="/my_teams">My Teams |</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/new_team">New Team</a>
+                        <a class="nav-link" href="/new_team">New Team |</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_pokemon">Add Pokemon to Team |</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -36,26 +39,41 @@
         </div>
     </nav>
     <div id="main-page">
-        <table>
-            <tr>
-                <th>Team Name</th>
-                <th>Created By</th>
-                <th>Pokemon Preview</th>
-                <th>Actions</th>
-            </tr>
-            {% for team in teams %}
-            <tr>
-                <td>{{team.team_name}}</td>
-                <td>{{team.user_id}}</td>
-                <td>Coming Soon!</td>
-                <td>
-                    <a href="/favorite">Favorite</a>
-                    <a href="/unfavorite">Unfavorite</a>
-                    <a href="/edit/{{team.id}}">Edit</a>
-                    <a href="/delete/{{team.id}}">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
+        <table class="table table-danger table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Team Name</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Pokemon Preview</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                <tr>
+                    <th scope="row"><a href="/{}}">{{team.team_name}}</a></th>
+                    <td>{{team.trainer.username}}</td>
+
+                    <td>
+                        {% for pokemon in team.pokemon %}
+                        <span><img src="{{pokemon.sprite_url}}" alt="{{pokemon.pokemon_species}}" width="100px">
+                        {{pokemon.pokemon_name}}
+                        </span>
+                        
+                        {% endfor %}
+                        {% for pokemon in team.pokemon %}
+                        
+                        {% endfor %}
+                        
+                    </td>
+                    <td><a href="/favorite">Favorite</a>
+                        <a href="/unfavorite">Unfavorite</a>
+                        <a href="/edit/{{team.id}}">Edit</a>
+                        <a href="/delete/{{team.id}}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </body>

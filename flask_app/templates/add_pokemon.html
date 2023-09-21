@@ -1,41 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
     <title>Pokemon Teams | Add Pokemon</title>
 </head>
+
 <body>
-    <form action="/create_pokemon" method="post" class="col-6 bg-dark p-4 my-5 mx-auto text-light">
-        <h2 class="text-center text-primary">New Pokemon</h2>
-        <div class="form-group">
-            <label for="dojo">Team:</label>
-            <select name="team_id" class="form-control">
-                {% for team in teams %}
-                <option value="{{team.id}}">{{team.team_name}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="pokemon_name">Pokemon Name:</label>
-            <input type="text" name="pokemon_name" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="pokemon_level">Pokemon Level:</label>
-            <input type="number" name="pokemon_level" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="pokemon_species">Pokemon Species:</label>
-            <input type="text" name="pokemon_species" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="notes">Pokemon Species:</label>
-            <textarea name="notes" id="" cols="30" rows="10"></textarea>
-        </div>
-        <input type="submit" value="Add Pokemon" class="btn btn-primary btn-outline-dark">
-    </form>
+    <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/dashboard">Pokémon Teams</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/my_teams">My Teams</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/new_team">New Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <h3 class="text-center">Would you like to keep adding Pokémon or return to the <a
+                href="/dashboard">Dashboard</a>?</h3>
+        <form action="/create_pokemon" method="post" class="col-6 bg-dark p-4 my-5 mx-auto text-light">
+            <h2 class="text-center text-primary">New Pokemon</h2>
+            <div class="form-group">
+                <label for="team_id">Team:</label>
+                <select name="team_id" class="form-select">
+                    {% for team in teams %}
+                    <option value="{{team.id}}">{{team.team_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pokemon_name">Pokemon Name:</label>
+                <input type="text" name="pokemon_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="pokemon_level">Pokemon Level:</label>
+                <input type="number" name="pokemon_level" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="pokemon-species">Choose a Pokémon:</label>
+                <select name="pokemon_species" id="pokemon-species" class="form-select">
+                    {% for pokemon in pokemon_names %}
+                    <option value="{{ pokemon|capitalize }}">{{ pokemon|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <textarea class="form-control" name="notes" id="" cols="30" rows="10"></textarea>
+            </div>
+            <input type="hidden" name="sprite_url" id="sprite-url">
+            <input type="submit" value="Add Pokemon" class="btn btn-primary btn-outline-dark">
+        </form>
+    </div>
+    {{pokemon_names}}
+    <script>
+
+    </script>
 </body>
+
 </html>

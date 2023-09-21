@@ -8,7 +8,10 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    all_teams = team_model.Team.get_all_teams()
+    if 'user_id' not in session:
+        return redirect('/')
+    
+    all_teams = team_model.Team.get_all_teams_with_users_and_pokemon()
     return render_template("dashboard.html", teams = all_teams)
 
 @app.route('/register', methods=['POST'])
